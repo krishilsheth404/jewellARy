@@ -32,39 +32,41 @@ app.post('/result', async(req, res) => {
 
     const final = []
 
-    extractLinkFromyahoo = async(url) => {
-        try {
-            // Fetching HTML
-            const { data } = await axios.get(url)
-                // console.log(data)
+    extractLinkFromBing = async (url) => {
+    try {
+        // Fetching HTML
+        const { data } = await axios.get(url)
+        // console.log(typeof(data));
+        // console.log(data)
 
-            // Using cheerio to extract <a> tags
-            console.log(typeof(data));
-            const K = cheerio.load(data);  
-            console.log(typeof(K));
-            var t = 0;
+        // Using cheerio to extract <a> tags
+        const $ = cheerio.load(data);
+        // console.log($.html());
 
-            K('.searchCenterMiddle li').find('li a').each(function(index, element) {
-                if (K(element).text() != 'Cached' && K(element).text() != '') {
-                    final.push({
-                        link: K(element).attr('href'),
-                        title: K(element).text(),
-                    });
-                }
-            });
-            console.log(final);
-
-        } catch (error) {
-            // console.log(error);
-            return 0;
+        const rawUrl = $('li[class=b_algo] h2 a').first().attr('href');
+        console.log(rawUrl);
+        if (rawUrl != undefined) {
+            return rawUrl
+        } else {
+            return '';
         }
-    };
+        // url = rawUrl.split("/url?q=")[1].split("&")[0];
+        // console.log('Extracting url: ', url);
+
+
+    } catch (error) {
+        // res.sendFile(__dirname + '/try.html');
+        // res.sendFile(__dirname + '/error.html');
+        console.log(error);
+        return {};
+    }
+};
 
     const s = req.body.search + '\n';
     console.log(s)
     final.push(s);
 
-    await extractLinkFromyahoo(`https://in.search.yahoo.com/search;_ylt=?p=${s}&ad=dirN&o=0`)
+    await extractLinkFromyahoo(`https://www.bing.com/search?q=${s}&ad=dirN&o=0`)
     res.render(__dirname+'/final', { final: final })
 
 
