@@ -41,7 +41,7 @@ app.post('/result', async(req, res) => {
 
         // Using cheerio to extract <a> tags
         const $ = cheerio.load(data);
-        // console.log($.html());
+        console.log($.html());
 
         const rawUrl = $('li[class=b_algo] h2 a').first().attr('href');
         console.log(rawUrl);
@@ -66,7 +66,7 @@ app.post('/result', async(req, res) => {
     console.log(s)
     final.push(s);
 
-    await extractLinkFromyahoo(`https://www.bing.com/search?q=${s}&ad=dirN&o=0`)
+    await extractLinkFromBing(`https://www.bing.com/search?q=${s}&ad=dirN&o=0`)
     res.render(__dirname+'/final', { final: final })
 
 
