@@ -29,13 +29,15 @@
   <canvas class="output_canvas" style="transform:rotateY(180deg);position: relative;">
   </canvas>
 </div>
-<span style="background-color: red;width: 10px;height: 10px;position: absolute;" id="imgsec">
-<img src="ringTryHand.png" alt="" style="width: 100%;"></span>
+<span style="background-color: transparent;width: 10px;height: 10px;position: absolute;" id="imgsec">
+<img src="ringTryHand.png" alt="" style="width: 100%;background-color: transparent;height: auto;">
+</span>
 
 
 
 
 <script type="module">
+
   Webcam.attach( '#my_camera' );
   
   const canvasElement = document.getElementsByClassName('output_canvas')[0];
@@ -143,7 +145,7 @@
           console.log(max);
           try{
             document.getElementById('imgsec').style=`top:${(((landmarks[13].y+landmarks[14].y)/2)*canvasElement.height)}px;right:${(((landmarks[13].x+landmarks[14].x)/2)*canvasElement.width)-30}px
-            ;z-index:1;background-color: transparent;width: ${max}px;height: 10px;position: absolute;transform:translate(25%,0%)`
+            ;z-index:1;background-color: transparent;width: ${max}px;height: auto;position: absolute;transform:translate(50%,-50%);`
           }catch(e){
             console.log(e)
           }
@@ -184,7 +186,7 @@
     maxNumHands: 1,
     modelComplexity: 1,
     minDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.5
+    minTrackingConfidence: 0.8
   });
   hands.onResults(onResults);
 
