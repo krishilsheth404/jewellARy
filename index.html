@@ -17,6 +17,13 @@
 
 
 </head>
+<style>
+
+  *{
+    margin: 0px;
+    padding: 0px;
+  }
+</style>
 <body>
  <video id="vid" src="" style="display: none;"></video>
  <!-- <script src="webcam.js"></script> -->
@@ -29,9 +36,10 @@
   <canvas class="output_canvas" style="transform:rotateY(180deg);position: relative;">
   </canvas>
 </div>
-<img id="imgsec" src="ringTryHand.png" alt="" >
-<!-- <span style="background-color: transparent;position: absolute;" >
-</span> -->
+
+<span style="background-color: red;width: 10px;height: 10px;position: absolute;" id="imgsec">
+  <img src="pngtree-diamond-ring-png-image_2873821-removebg-preview.png" alt="" style="width: 100%;">
+</span>
 
 
 
@@ -133,10 +141,9 @@
           ox = landmarks[12].x;
           start++;
         } else {
-
-
           max=Math.abs(landmarks[5].x-landmarks[9].x)*canvasElement.width;
-          
+
+
           if(((Math.abs(landmarks[5].x-landmarks[9].x)*canvasElement.width)-max)<20){
             max=max
           }else{
@@ -144,7 +151,8 @@
           }
           console.log(max);
           try{
-            document.getElementById('imgsec').style=`top:${(((landmarks[13].y+landmarks[14].y)/2)*canvasElement.height)}px;right:${(((landmarks[13].x+landmarks[14].x)/2)*canvasElement.width)-30}px
+            document.getElementById('imgsec').style=`top:${(((landmarks[13].y+landmarks[14].y)/2)*canvasElement.height)}px;
+            right:${(((landmarks[13].x+landmarks[14].x)/2)*canvasElement.width)-(canvasElement.width*.005)}px
             ;z-index:1;background-color: transparent;width: ${max}px;height: auto;position: absolute;transform:translate(50%,-50%);`
           }catch(e){
             console.log(e)
