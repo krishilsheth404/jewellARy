@@ -9,11 +9,15 @@
 <body>
   <div id="box"></div>
   <script>
-    if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
-  document.getElementById('box').innerHTML="Let's get this party started";
-}else{
-  document.getElementById('box').innerHTML="camera not supported";
-}
+  var constraints = { audio: true, video: { width: 1280, height: 720 } }; 
+
+navigator.mediaDevices.getUserMedia(constraints)
+  .then(function() {
+    console.log('getUserMedia completed successfully.');
+  })
+  .catch(function(error) {
+    console.log(error.name + ": " + error.message);
+  });
   </script>
 </body>
 </html>
