@@ -29,9 +29,9 @@
   <canvas class="output_canvas" style="transform:rotateY(180deg);position: relative;">
   </canvas>
 </div>
-<span style="background-color: transparent;width: 10px;height: 10px;position: absolute;" id="imgsec">
-<img src="ringTryHand.png" alt="" style="width: 100%;background-color: transparent;height: auto;">
-</span>
+<img id="imgsec" src="#" alt="" >
+<!-- <span style="background-color: transparent;position: absolute;" >
+</span> -->
 
 
 
@@ -145,7 +145,7 @@
           console.log(max);
           try{
             document.getElementById('imgsec').style=`top:${(((landmarks[13].y+landmarks[14].y)/2)*canvasElement.height)}px;right:${(((landmarks[13].x+landmarks[14].x)/2)*canvasElement.width)-30}px
-            ;z-index:1;background-color: transparent;width: ${max}px;height: auto;position: absolute;transform:translate(50%,-50%);`
+            ;z-index:1;background-color: red;width: ${max}px;height: 20px;position: absolute;transform:translate(50%,-50%);`
           }catch(e){
             console.log(e)
           }
