@@ -37,7 +37,7 @@
   </canvas>
 </div>
 
-<span style="background-color: red;width: 10px;height: 10px;position: absolute;" id="imgsec">
+<span style="background-color: red;width: auto;overflow: visible;height: 10px;position: absolute;" id="imgsec">
   <img src="ringTryHand.png" alt="" style="width: 100%;">
 </span>
 
@@ -128,7 +128,7 @@
   }
 
 
-  var max=0,count=0;
+  var max=0,count=0,oldmax=0;
   console.log(canvasElement.height)
   function onResults(results) {
     canvasCtx.save();
@@ -141,18 +141,16 @@
           ox = landmarks[12].x;
           start++;
         } else {
-          max=Math.abs(landmarks[5].x-landmarks[9].x)*canvasElement.width;
-
-
-          if(((Math.abs(landmarks[5].x-landmarks[9].x)*canvasElement.width)-max)<20){
-            max=max
-          }else{
-            max=Math.abs(landmarks[5].x-landmarks[9].x)*canvasElement.width;
-          }
+          
+            max=Math.abs(
+                       Math.sqrt(
+                        Math.abs((landmarks[5].x-landmarks[9].x)*(landmarks[5].x-landmarks[9].x))+
+                        Math.abs((landmarks[5].y-landmarks[9].y)*(landmarks[5].y-landmarks[9].y))
+                        ))*canvasElement.width;;
           console.log(max);
           try{
             document.getElementById('imgsec').style=`top:${(((landmarks[13].y+landmarks[14].y)/2)*canvasElement.height)}px;
-            right:${(((landmarks[13].x+landmarks[14].x)/2)*canvasElement.width)-(canvasElement.width*.0075)}px
+            right:${(((landmarks[13].x+landmarks[14].x)/2)*canvasElement.width)-(window.innerWidth*0.005)}px
             ;z-index:1;background-color: transparent;width: ${max}px;height: auto;position: absolute;transform:translate(50%,-50%);`
           }catch(e){
             console.log(e)
