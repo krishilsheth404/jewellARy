@@ -5,19 +5,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js" integrity="sha512-dQIiHSl2hr3NWKKLycPndtpbh5iaHLo6MwrXm7F0FM5e+kL2U16oE9uIwPHUl6fQBeCthiEuV/rzP3MiAB8Vfw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js" integrity="sha512-AQMSn1qO6KN85GOfvH6BWJk46LhlvepblftLHzAv1cdIyTWPBKHX+r+NOXVVw6+XQpeW4LJk/GTmoP48FLvblQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
 </head>
 <body>
-  <div id="box"></div>
-  <script>
-  var constraints = { audio: true, video: { width: 1280, height: 720 } }; 
+ <video src=""></video>
+ <!-- <script src="webcam.js"></script> -->
 
-navigator.mediaDevices.getUserMedia(constraints)
-  .then(function() {
-    console.log('getUserMedia completed successfully.');
-  })
-  .catch(function(error) {
-    console.log(error.name + ": " + error.message);
-  });
-  </script>
+ <div id="my_camera" style="width:320px; height:240px;"></div>
+ <div id="my_result"></div>
+
+ <script language="JavaScript">
+   Webcam.attach( '#my_camera' );
+   
+   function take_snapshot() {
+     Webcam.snap( function(data_uri) {
+       document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
+     } );
+   }
+ </script>
+
+ <a href="javascript:void(take_snapshot())">Take Snapshot</a>
 </body>
 </html>
