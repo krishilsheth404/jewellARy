@@ -24,7 +24,10 @@
     padding: 0px;
   }
 </style>
-<body>
+<body onload="showstart()">
+  <div  id="main" style="position: absolute;top: 0px;left: 0px;width: 100%;height: 100vh;background: gray;">
+  <img src="https://i.pinimg.com/originals/4e/7e/39/4e7e3946f8c1acdca51108d7aa5c36b3.gif" style="width:100px;height: 100px;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);" alt="">
+</div>
  <video id="vid" src="" style="display: none;"></video>
  <!-- <script src="webcam.js"></script> -->
 
@@ -37,8 +40,8 @@
   </canvas>
 </div>
 
-<span style="background-color: red;width: auto;overflow: visible;height: 10px;position: absolute;" id="imgsec">
-  <img src="ringTryHand.png" alt="" style="width: 100%;">
+<span style="background-color: red;width: auto;overflow: visible;height: 0px;position: absolute;" id="imgsec">
+  <img src="ringTryHand.png" alt="" style="width:100%">
 </span>
 
 
@@ -46,6 +49,9 @@
 
 <script type="module">
 
+function showstart(){
+ document.getElementById('main').style.display='none';
+}
   Webcam.attach( '#my_camera' );
   
   const canvasElement = document.getElementsByClassName('output_canvas')[0];
