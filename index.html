@@ -7,196 +7,25 @@
   <title>Document</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js" integrity="sha512-dQIiHSl2hr3NWKKLycPndtpbh5iaHLo6MwrXm7F0FM5e+kL2U16oE9uIwPHUl6fQBeCthiEuV/rzP3MiAB8Vfw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.js" integrity="sha512-AQMSn1qO6KN85GOfvH6BWJk46LhlvepblftLHzAv1cdIyTWPBKHX+r+NOXVVw6+XQpeW4LJk/GTmoP48FLvblQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.2.0/glide.min.js"></script>
-
-
+  
 </head>
 <body>
- <video id="vid" src="" style="display: none;"></video>
+ <video src=""></video>
  <!-- <script src="webcam.js"></script> -->
 
  <div id="my_camera" style="width:320px; height:240px;"></div>
  <div id="my_result"></div>
 
- <div class="container">
-  <!-- <video class="input_video" width="0px" height="0px"></video> -->
-  <canvas class="output_canvas" style="transform:rotateY(180deg);position: relative;">
-  </canvas>
-</div>
-<span style="background-color: red;width: 10px;height: 10px;position: absolute;" id="imgsec">
-<img src="ringTryHand.png" alt="" style="width: 100%;"></span>
+ <script language="JavaScript">
+   Webcam.attach( '#my_camera' );
+   
+   function take_snapshot() {
+     Webcam.snap( function(data_uri) {
+       document.getElementById('my_result').innerHTML = '<img src="'+data_uri+'"/>';
+     } );
+   }
+ </script>
 
-
-
-
-<script type="module">
-  Webcam.attach( '#my_camera' );
-  
-  const canvasElement = document.getElementsByClassName('output_canvas')[0];
-
-   canvasElement.width = window.innerWidth;
-    canvasElement.height = window.innerHeight;
-
-  const videoElement = document.getElementById('vid');
-    const canvasCtx = canvasElement.getContext('2d');
-    document.getElementById('my_camera').style.display='none';
-    var ox, oy;
-    var start = 0,z=0;
-    var oldscale,s,r,zoomVal=90;
-  
-
-  function coords(x, y) {
-
-  
-    if (ox - x >= 10) {
-      console.log('left')
-      // r-=100;
-    } else if (Math.abs(ox - x) >= 10) {
-      console.log('right')
-      // r-=100;
-    } else if (oy - y >= 15) {
-      console.log('up');
-    } else if (y - oy >= 15) {
-      console.log('down');
-    } else {
-      // modelViewer.cameraOrbit=`${oldscale}deg ${s}deg 1rad`;
-    }
-    ox = x;
-    oy = y;
-  }
-
-  // function coords(x,y,z)
-  // {
-  //   // console.log(x,y);
-  //   var element=document.getElementById('gameBlock');
-  //   var Bx=(element.clientWidth/100);
-  //   var By=(element.clientHeight/100);
-  //   // console.log(Bx*x,By*y);
-
-  //   // console.log(element.clientWidth,element.clientHeight)
-  //   document.getElementById('vLine').style=`height:5px;width:5px;position: absolute;top: ${By*y}px;right: ${Bx*x}px;background-color: black;transform: rotate(90deg);`
-  //   // document.getElementById('hLine').style=`height:5px;width:100%;position: absolute;top:${By*y}px;left:0px;background-color: aqua;`
-  // }
-
-  function coordsForW(x, y, z) {
-    // console.log(x,y);
-    var element = document.getElementById('gameBlock');
-    var Bx = (element.clientWidth / 100);
-    var By = (element.clientHeight / 100);
-    // console.log(Bx*x,By*y);
-
-    document.getElementById('WLine').style = `height:5px;width:5px;position: absolute;top: ${By * y}px;right: ${Bx * x}px;background-color: green;transform: rotate(90deg);`
-    // document.getElementById('hLine').style=`height:5px;width:100%;position: absolute;top:${By*y}px;left:0px;background-color: aqua;`
-  }
-  function coordsForP(x, y, z) {
-    console.log(x, y, z);
-    var element = document.getElementById('gameBlock');
-    var Bx = (element.clientWidth / 100);
-    var By = (element.clientHeight / 100);
-    // console.log(Bx*x,By*y);
-
-    // console.log(element.clientWidth,element.clientHeight)
-    document.getElementById('PLine').style = `height:5px;width:5px;position: absolute;top: ${By * y}px;right: ${Bx * x}px;background-color: yellow;transform: rotate(90deg);`
-    // document.getElementById('hLine').style=`height:5px;width:100%;position: absolute;top:${By*y}px;left:0px;background-color: aqua;`
-  }
-  function coordsForT(x, y, z) {
-    console.log(x, y, z);
-    var element = document.getElementById('gameBlock');
-    var Bx = (element.clientWidth / 100);
-    var By = (element.clientHeight / 100);
-    // console.log(Bx*x,By*y);
-
-    // console.log(element.clientWidth,element.clientHeight)
-    document.getElementById('TLine').style = `height:5px;width:5px;position: absolute;top: ${By * y}px;right: ${Bx * x}px;background-color: red;transform: rotate(90deg);`
-    // document.getElementById('hLine').style=`height:5px;width:100%;position: absolute;top:${By*y}px;left:0px;background-color: aqua;`
-  }
-
-
-  var max=0,count=0;
-  console.log(canvasElement.height)
-  function onResults(results) {
-    canvasCtx.save();
-    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    canvasCtx.drawImage(
-      results.image, 0, 0, canvasElement.width, canvasElement.height);
-    if (results.multiHandLandmarks) {
-      for (const landmarks of results.multiHandLandmarks) {
-        if (start == 0) {
-          ox = landmarks[12].x;
-          start++;
-        } else {
-
-
-          max=Math.abs(landmarks[5].x-landmarks[9].x)*canvasElement.width;
-          
-          if(((Math.abs(landmarks[5].x-landmarks[9].x)*canvasElement.width)-max)<20){
-            max=max
-          }else{
-            max=Math.abs(landmarks[5].x-landmarks[9].x)*canvasElement.width;
-          }
-          console.log(max);
-          try{
-            document.getElementById('imgsec').style=`top:${(((landmarks[13].y+landmarks[14].y)/2)*canvasElement.height)}px;right:${(((landmarks[13].x+landmarks[14].x)/2)*canvasElement.width)-30}px
-            ;z-index:1;background-color: transparent;width: ${max}px;height: 10px;position: absolute;transform:translate(25%,0%)`
-          }catch(e){
-            console.log(e)
-          }
-          // coords(landmarks[12].x * 100, landmarks[12].y * 100)
-        }
-
-        // var deg = Math.atan((landmarks[4].y - landmarks[20].y) / (landmarks[4].x - landmarks[20].x)) * 180 / 3.14;
-        // if (deg < 0) {
-        //   deg = 180 + deg;
-        // } else {
-        //   deg = deg;
-        // }
-        // console.log(Math.round(90-deg))
-        // if (Math.round(90 - deg) % 10 == 0) {
-        //   document.getElementById('rectForTM').style.transform = `rotate(${90 - deg}deg)`;
-        //   document.getElementById('rectForMM').style.transform = `rotate(${90 - deg}deg)`;
-        //   document.getElementById('rectForBM').style.transform = `rotate(${90 - deg}deg)`;
-        // }
-
-
-        drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
-          { color: 'transparent', lineWidth: 1 });
-        // drawLandmarks(canvasCtx, landmarks, {color: '#FF0000', lineWidth: 1});
-      }
-    }
-    canvasCtx.restore();
-  }
-
-  function click(){
-    
-  }
-  const hands = new Hands({
-    locateFile: (file) => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-    }
-  });
-  hands.setOptions({
-    maxNumHands: 1,
-    modelComplexity: 1,
-    minDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.5
-  });
-  hands.onResults(onResults);
-
-  var block=document.getElementsByTagName('body');
-  const camera = new Camera(videoElement, {
-    onFrame: async () => {
-      await hands.send({ image: videoElement });
-    },
-    width: block.width,
-    height: block.height,
-  });
-  camera.start();
-</script>
+ <a href="javascript:void(take_snapshot())">Take Snapshot</a>
 </body>
 </html>
