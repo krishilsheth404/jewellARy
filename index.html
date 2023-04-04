@@ -25,7 +25,10 @@
 <!-- <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script> -->
 
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js" integrity="sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.slim.js" integrity="sha512-G1QAKkF7DrLYdKiz55LTK3Tlo8Vet2JnjQHuJh+LnU0zimJkMZ7yKZ/+lQ/0m94NC1EisSVS1b35jugu3wLdQg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.slim.min.js" integrity="sha512-fYjSocDD6ctuQ1QGIo9+Nn9Oc4mfau2IiE8Ki1FyMV4OcESUt81FMqmhsZe9zWZ6g6NdczrEMAos1GlLLAipWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 </head>
@@ -36,7 +39,7 @@
   }
 </style>
 
-<body onload="showstart()">
+<body >
   <div id="main" style="position: absolute;top: 0px;left: 0px;width: 100%;height: 100vh;background: gray;">
     <img src="https://i.pinimg.com/originals/4e/7e/39/4e7e3946f8c1acdca51108d7aa5c36b3.gif"
       style="width:100px;height: 100px;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);" alt="">
@@ -62,27 +65,27 @@
 
   <script >
     
-    function showstart() {
+    $( document ).ready(function() {
+      console.log( "ready!" );
       Webcam.attach('#my_camera');
-      document.getElementById('main').style.display = 'none';
-    }
-
+    document.getElementById('main').style.display = 'none';
+    
     const canvasElement = document.getElementsByClassName('output_canvas')[0];
-
+    
     canvasElement.width = window.innerWidth;
     canvasElement.height = window.innerHeight;
-
+    
     const videoElement = document.getElementById('vid');
     const canvasCtx = canvasElement.getContext('2d');
     document.getElementById('my_camera').style.display = 'none';
     var ox, oy;
     var start = 0, z = 0;
     var oldscale, s, r, zoomVal = 90;
-
-
+    
+    
     function coords(x, y) {
-
-
+      
+      
       if (ox - x >= 10) {
         console.log('left')
         // r-=100;
@@ -231,6 +234,8 @@
       height: block.height,
     });
     camera.start();
+  });
+
   </script>
 </body>
 
